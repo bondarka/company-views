@@ -1,0 +1,106 @@
+@bodyBackground: #fff;
+@formBorderColor: #ccc;
+@fontSize: 14px;
+@textColor: #555;
+@nameColor: #000;
+@titlecolor: #eee;
+html {
+    height: 100%;
+}
+
+body {
+    background-color: @bodyBackground;
+    font-family: "Roboto", sans-serif;
+    font-size: @fontSize;
+    color: @textColor;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 30px;
+    .form-block {
+        flex: 0 1 auto;
+        max-width: 510px;
+        border: 1px solid @formBorderColor;
+        border-radius: 5px;
+        .form-name {
+            h1 {
+                font-size: @fontSize*1.5;
+                text-align: center;
+                color: @nameColor;
+                margin: 0;
+                background-color: @titlecolor;
+                padding: 10px;
+                font-weight: bold;
+            }
+        }
+        .form-content {
+            padding: 20px;
+            .line {
+                margin: 15px 0;
+                width: 100%;
+                &.gender{
+                    height: 34px;
+                    border-radius: 5px;
+                    border: 1px solid @formBorderColor;
+                    margin: 0;
+                    padding: 0 15px;
+                    &:focus {
+                        outline: 0;
+                        border: 1px solid @formBorderColor;
+                        box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
+                    }
+                }
+                .input-group-addon {
+                    i {
+                        color: @nameColor;
+                    }
+                }
+                input {
+                    &.form-write {
+                        &:focus {
+                            border: 1px solid @formBorderColor;
+                            box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
+                        }
+                    }
+                }
+            }
+            // .checkbox {
+            //     input[type="checkbox"] {
+            //         display: none;
+            //         & + label {
+            //             font: 18px bold;
+            //             color: #444;
+            //             cursor: pointer;
+                 
+            //             &:before {
+            //                 content: "";
+            //                 display: inline-block;
+            //                 height: 18px;
+            //                 width: 18px;
+            //                 margin: 0 5px 0 0;
+            //                 border: 2px solid @formBorderColor;
+            //             }
+            //         }
+            //     }
+            // }
+            .btn {
+                background-color: @titlecolor;
+                border: 1px solid @formBorderColor;
+                font-size: @fontSize*1.2;
+                padding: 5px 25px;
+                float: right;
+                &:focus {
+                    outline: 0;
+                    border: 1px solid @formBorderColor;
+                    box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
+                }
+            }
+        }
+    }
+}
