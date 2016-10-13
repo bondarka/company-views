@@ -38,21 +38,39 @@ body {
         border-radius: 5px;
         margin: 20px;
         .form-name {
-            h1,
-            h2 {
+            .title {
                 font-size: @fontSize*1.5;
                 color: @nameColor;
                 margin: 0;
                 background-color: @titlecolor;
                 padding: 10px;
                 font-weight: bold;
-            }
-            h1 {
-                text-align: center;
+                &.first {
+                    text-align: center;
+                }
             }
         }
         .form-content {
             padding: 20px;
+            &.news {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                align-content: space-between;
+                .short-info {
+                    flex: 0 1 auto;
+                    padding: 10px;
+                    .news-pictures{
+                        width:100%;
+                    }
+                }
+                .short-content {
+                    flex: 0 1 auto;
+                    padding: 10px;
+                }
+            }
             .signup-error {
                 display: none;
             }
@@ -76,14 +94,13 @@ body {
                         color: @nameColor;
                     }
                 }
-                input {
-                    &.form-write {
+               .form-write {
                         &:focus {
                             border: 1px solid @formBorderColor;
                             box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
                         }
                     }
-                }
+                
             }
             .companies-list {
                 list-style-type: none;
