@@ -17,34 +17,49 @@ body {
 
 .form-box {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     align-content: center;
     margin: 30px;
+    &.companies {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        align-content: center;
+    }
     .form-block {
         flex: 0 1 auto;
-        max-width: 510px;
+        width: 510px;
         border: 1px solid @formBorderColor;
         border-radius: 5px;
+        margin: 20px;
         .form-name {
-            h1 {
+            h1,
+            h2 {
                 font-size: @fontSize*1.5;
-                text-align: center;
                 color: @nameColor;
                 margin: 0;
                 background-color: @titlecolor;
                 padding: 10px;
                 font-weight: bold;
             }
+            h1 {
+                text-align: center;
+            }
         }
         .form-content {
             padding: 20px;
+            .signup-error {
+                display: none;
+            }
             .line {
                 margin: 15px 0;
                 width: 100%;
-                &.gender{
+                &.gender {
                     height: 34px;
                     border-radius: 5px;
                     border: 1px solid @formBorderColor;
@@ -70,25 +85,48 @@ body {
                     }
                 }
             }
-            // .checkbox {
-            //     input[type="checkbox"] {
-            //         display: none;
-            //         & + label {
-            //             font: 18px bold;
-            //             color: #444;
-            //             cursor: pointer;
-                 
-            //             &:before {
-            //                 content: "";
-            //                 display: inline-block;
-            //                 height: 18px;
-            //                 width: 18px;
-            //                 margin: 0 5px 0 0;
-            //                 border: 2px solid @formBorderColor;
-            //             }
-            //         }
-            //     }
-            // }
+            .companies-list {
+                list-style-type: none;
+                padding: 0;
+                border: 1px solid @textColor;
+                max-height: 205px;
+                overflow-y: scroll;
+                li {
+                    padding: 10px;
+                    border-bottom: 1px solid @textColor;
+                }
+            }
+            .checkbox {
+                input[type="checkbox"] {
+                    display: none;
+                    position: relative;
+                    & + label {
+                        cursor: pointer;
+                        &:before {
+                            content: "";
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            top: 3px;
+                            height: 15px;
+                            width: 15px;
+                            margin: 0 5px 0 0;
+                            border: 1px solid @formBorderColor;
+                            border-radius: 3px;
+                        }
+                    }
+                    &:checked {
+                        & + label {
+                            &:after {
+                                content: "\f00c";
+                                position: absolute;
+                                font-family: "FontAwesome";
+                                left: 0;
+                            }
+                        }
+                    }
+                }
+            }
             .btn {
                 background-color: @titlecolor;
                 border: 1px solid @formBorderColor;
