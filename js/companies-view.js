@@ -2,53 +2,91 @@ var MAXDESCRIPTION = 100;
 
 $(function() {
 
-	/**
-	* Show Number of companies in set
-	* @param {array} data  - collection of companies
-	* @return undefined
-	*/
-	function showTotal(data){
+    /**
+     * Show Number of companies in set
+     * @param {array} data  - collection of companies
+     * @return undefined
+     */
+    function showTotal(data) {
         $(".total-content").empty();
         var list = data["list"];
         var $item = $("<span>");
         var $totalCompany = list.length;
         $item.text($totalCompany);
-        $item.appendTo(".total-content")	
-	}
+        $item.appendTo(".total-content")
+    }
 
-	/**
-	* Show companies in the list
-	* @param {array} data  - collection of companies
-	* @return undefined
-	*/
-	function showCompanies(data){
+    /**
+     * Show companies in the list
+     * @param {array} data  - collection of companies
+     * @return undefined
+     */
+    function showCompanies(data) {
         console.log('data', data);
         $(".companies-list").empty();
         var list = data["list"];
         for (var i = 0; i < list.length; i++) {
             var $item = $("<li>");
             $item.text(list[i]['name']);
+            $item.data('id', i);
+            $item.click(function() {
+                var index = $(this).data("id");
+                showPartners(list[index]['partners']);
+                $(this).addClass("active");
+                $(this).siblings().removeClass("active");
+            })
             $item.appendTo(".companies-list");
         }
-	}
+    }
 
 
-	/**
-	* Get companies set from the server
-	* @return undefined
-	*/
+    /**
+     * Get companies set from the server
+     * @return undefined
+     */
     function getList() {
+    	var $loader = $('.companies-box .loader');
+    	$loader.show();
         $.getJSON('http://codeit.pro/frontTestTask/company/getList',
             function(response) {
+            	$loader.hide();
                 showTotal(response);
                 showCompanies(response);
             });
     }
 
-	/**
-	* Get news set from the server
-	* @return undefined
-	*/
+
+    function showPartners(values) {
+        $(".company-partners").empty();
+        for (var i = 0; i < values.length; i++) {
+            var $partner = $("<div>");
+            $partner.addClass("partner");
+            $partner.appendTo(".company-partners");
+
+            var $shares = $("<div>");
+            $shares.addClass("shares");
+            $shares.text(values[i]['value'] + "%");
+            $shares.appendTo($partner);
+
+
+
+
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+    /**
+     * Get news set from the server
+     * @return undefined
+     */
     function getNews() {
         $.getJSON('http://codeit.pro/frontTestTask/news/getList',
             function(resp) {
@@ -151,10 +189,10 @@ $(function() {
 
 
     /**
-    * Format date
-    * @param {number} timestamp - timestamp in seconds
-    * @return {string} - formatted date
-    */
+     * Format date
+     * @param {number} timestamp - timestamp in seconds
+     * @return {string} - formatted date
+     */
     function formatDate(timestamp) {
         var date = new Date(timestamp * 1000);
         var year = date.getFullYear();
@@ -175,7 +213,7 @@ $(function() {
         return result;
 
     }
-
+    showPartners([{ "name": "Photojam", "value": 57 }, { "name": "Divavu", "value": 82 }, { "name": "Quinu", "value": 18 }]);
     getList();
     getNews();
 });
