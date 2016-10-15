@@ -8,6 +8,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/style.less" rel="stylesheet/less" />
     <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/companies-view.js"></script>
     <!-- set options before less.js script -->
     <script>
@@ -41,11 +42,6 @@
             </div>
             <div class="form-content">
                 <ul class="companies-list">
-                    <li>Huawei</li>
-                    <li>Lenovo</li>
-                    <li>Samsung</li>
-                    <li>Nokia</li>
-                    <li>LG</li>
                 </ul>
             </div>
         </div>
@@ -60,23 +56,75 @@
             <div class="form-name">
                 <h2 class="title">News</h2>
             </div>
-            <div class="form-content news">
-                <div class="short-info">
-                    <img src="img/cat.jpeg" alt="pictures" class="news-pictures">
-                    <div class="autor">
-                        <b>Autor:</b>Admin
+            <!-- Carousel news -->
+            <div id="myCarousel" class="carousel slide" data-ride="carousel"  data-interval="false">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                </ol>
+                <!-- Wrapper for 1st slides -->
+                <div class="carousel-inner" role="listbox" >
+                    <div class="item active">
+                        <div class="form-content news">
+                            <div class="short-info">
+                                <div class="news-image"><img src="http://placekitten.com/200/300" alt=""></div>
+                                <div class="author">
+                                    <b>Author:</b><span class="author-name">Admin</span>
+                                </div>
+                                <div class="public">
+                                    <b>Public:</b>30.10.2016
+                                </div>
+                            </div>
+                            <div class="short-content">
+                                <a href="#" class="link-title">Title</a>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere quisquam blanditiis saepe architecto, aut eveniet. Fugiat enim, nam rem et ut dolorem magni saepe, optio ullam minus repellendus nulla earum.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="public">
-                        <b>Public:</b>30.10.2016
+                    <!-- Wrapper for 2nd slides -->
+                    <div class="item">
+                        <div class="form-content news">
+                            <div class="short-info">
+                                <div class="news-image"><img src="http://placekitten.com/200/300" alt=""></div>
+                                <div class="author">
+                                    <b>Author:</b><span class="author-name">Admin</span>
+                                </div>
+                                <div class="public">
+                                    <b>Public:</b>30.10.2016
+                                </div>
+                            </div>
+                            <div class="short-content">
+                                <a href="#" class="link-title">Title</a>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere quisquam blanditiis saepe architecto, aut eveniet. Fugiat enim, nam rem et ut dolorem magni saepe, optio ullam minus repellendus nulla earum.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="short-content">
-                    <a href="#" class="link-title">Title</a>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere quisquam blanditiis saepe architecto, aut eveniet. Fugiat enim, nam rem et ut dolorem magni saepe, optio ullam minus repellendus nulla earum.
-                    </p>
+                    <!-- Wrapper for 3d slides -->
+                    <div class="item">
+                        <div class="form-content news">
+                            <div class="short-info">
+                                <div class="news-image"><img src="http://placekitten.com/200/300" alt=""></div>
+                                <div class="author">
+                                    <b>Author:</b><span class="author-name">Admin</span>
+                                </div>
+                                <div class="public">
+                                    <b>Public:</b>30.10.2016
+                                </div>
+                            </div>
+                            <div class="short-content">
+                                <a href="#" class="link-title">Title</a>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere quisquam blanditiis saepe architecto, aut eveniet. Fugiat enim, nam rem et ut dolorem magni saepe, optio ullam minus repellendus nulla earum.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- end carousel -->
         </div>
     </div>
 </body>

@@ -37,6 +37,12 @@ body {
         border: 1px solid @formBorderColor;
         border-radius: 5px;
         margin: 20px;
+        .carousel-indicators{
+            li{
+                background-color:@textColor;
+                border-color:@textColor; 
+            }
+        }
         .form-name {
             .title {
                 font-size: @fontSize*1.5;
@@ -57,17 +63,19 @@ body {
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-start;
                 align-content: space-between;
                 .short-info {
-                    flex: 0 1 auto;
+                    flex: 0 0 180px;
                     padding: 10px;
-                    .news-pictures{
-                        width:100%;
+                    .news-image {
+                        img {
+                            width: 100%;
+                        }
                     }
                 }
                 .short-content {
-                    flex: 0 1 auto;
+                    flex: 1 1 auto;
                     padding: 10px;
                 }
             }
@@ -94,13 +102,12 @@ body {
                         color: @nameColor;
                     }
                 }
-               .form-write {
-                        &:focus {
-                            border: 1px solid @formBorderColor;
-                            box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
-                        }
+                .form-write {
+                    &:focus {
+                        border: 1px solid @formBorderColor;
+                        box-shadow: inset 0 1px 1px rgba(204, 204, 204, 0.7), 0 0 8px rgba(204, 204, 204, 0.4);
                     }
-                
+                }
             }
             .companies-list {
                 list-style-type: none;
