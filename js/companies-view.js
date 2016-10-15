@@ -2,24 +2,53 @@ var MAXDESCRIPTION = 100;
 
 $(function() {
 
+	/**
+	* Show Number of companies in set
+	* @param {array} data  - collection of companies
+	* @return undefined
+	*/
+	function showTotal(data){
+        $(".total-content").empty();
+        var list = data["list"];
+        var $item = $("<span>");
+        var $totalCompany = list.length;
+        $item.text($totalCompany);
+        $item.appendTo(".total-content")	
+	}
+
+	/**
+	* Show companies in the list
+	* @param {array} data  - collection of companies
+	* @return undefined
+	*/
+	function showCompanies(data){
+        console.log('data', data);
+        $(".companies-list").empty();
+        var list = data["list"];
+        for (var i = 0; i < list.length; i++) {
+            var $item = $("<li>");
+            $item.text(list[i]['name']);
+            $item.appendTo(".companies-list");
+        }
+	}
+
+
+	/**
+	* Get companies set from the server
+	* @return undefined
+	*/
     function getList() {
         $.getJSON('http://codeit.pro/frontTestTask/company/getList',
             function(response) {
-                console.log('response', response);
-                $(".companies-list").empty();
-                var list = response["list"];
-                for (var i = 0; i < list.length; i++) {
-                    var $item = $("<li>");
-                    $item.text(list[i]['name']);
-                    $item.appendTo(".companies-list");
-
-
-
-
-                }
+                showTotal(response);
+                showCompanies(response);
             });
     }
 
+	/**
+	* Get news set from the server
+	* @return undefined
+	*/
     function getNews() {
         $.getJSON('http://codeit.pro/frontTestTask/news/getList',
             function(resp) {
@@ -121,6 +150,11 @@ $(function() {
     }
 
 
+    /**
+    * Format date
+    * @param {number} timestamp - timestamp in seconds
+    * @return {string} - formatted date
+    */
     function formatDate(timestamp) {
         var date = new Date(timestamp * 1000);
         var year = date.getFullYear();
@@ -137,12 +171,11 @@ $(function() {
         }
         result += month;
         result += ".";
-        result += year;
+        result += year
         return result;
 
     }
 
-
-    getNews();
     getList();
+    getNews();
 });

@@ -4,6 +4,7 @@
 @textColor: #555;
 @nameColor: #000;
 @titlecolor: #eee;
+@totalSize:150px;
 html {
     height: 100%;
 }
@@ -32,11 +33,18 @@ body {
         align-content: center;
     }
     .form-block {
-        flex: 0 1 auto;
-        width: 510px;
+        flex: 1 0;
         border: 1px solid @formBorderColor;
         border-radius: 5px;
         margin: 20px;
+        display: flex;
+        flex-direction:column;
+        flex-wrap:nowrap;
+        align-items:stretch;
+        min-height: 150px;
+        &.partners {
+            width: 100%;
+        }
         .carousel-indicators {
             bottom: 0;
             li {
@@ -62,6 +70,23 @@ body {
         }
         .form-content {
             padding: 20px;
+            flex:1 0 auto;
+            position: relative;
+            min-height:@totalSize;
+            .total-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 50%;
+                border: 1px solid @formBorderColor;
+                width:@totalSize;
+                height: @totalSize;
+                line-height: @totalSize;
+                font-size: @fontSize*2;
+                margin-top: -(@totalSize/2);
+                margin-left: -(@totalSize/2);
+                text-align: center;
+            }
             &.news {
                 display: flex;
                 flex-direction: row;
