@@ -1,3 +1,5 @@
+var MAXDESCRIPTION = 100;
+
 $(function() {
 
     function getList() {
@@ -8,11 +10,10 @@ $(function() {
                 var list = response["list"];
                 for (var i = 0; i < list.length; i++) {
                     var $item = $("<li>");
+                    $item.text(list[i]['name']);
                     $item.appendTo(".companies-list");
-                    var $link = $("<a>");
-                    $link.text(list[i]['name']);
-                    $link.attr('href', list[i]['partners']);
-                    $link.appendTo($item);
+
+
 
 
                 }
@@ -87,7 +88,7 @@ $(function() {
 
 
                     var $publicDate = $("<span>");
-                    $publicDate.text(catalog[i]['date']);
+                    $publicDate.text(formatDate(catalog[i]["date"]));
                     $publicDate.appendTo($public);
 
                     // add block short content
@@ -99,13 +100,18 @@ $(function() {
                     // add title
                     var $title = $("<a>");
                     $title.addClass("link-title");
-                    $title.text(catalog[i]['author']);
+                    $title.text(catalog[i]['link']);
                     $title.attr('href', catalog[i]['link']);
                     $title.appendTo($shortContent);
 
                     // add description
                     var $description = $("<p>");
-                    $description.text(catalog[i]['description']);
+                    var text = catalog[i]['description'];
+                    if (text.length > MAXDESCRIPTION) {
+                        text = text.slice(0, MAXDESCRIPTION);
+                        text += "...";
+                    }
+                    $description.text(text);
                     $description.appendTo($shortContent);
 
                 }
@@ -114,6 +120,27 @@ $(function() {
 
     }
 
+
+    function formatDate(timestamp) {
+        var date = new Date(timestamp * 1000);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var result = "";
+        if (day < 10) {
+            result += "0";
+        }
+        result += day;
+        result += ".";
+        if (month < 10) {
+            result += "0";
+        }
+        result += month;
+        result += ".";
+        result += year;
+        return result;
+
+    }
 
 
     getNews();
