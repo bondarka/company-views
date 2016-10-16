@@ -4,8 +4,9 @@
 @textColor: #555;
 @nameColor: #000;
 @titlecolor: #eee;
+@hoverList:rgba(204, 204, 204, 0.45);
 @totalSize: 150px;
-@valueSize:150px;
+@valueSize: 150px;
 html {
     height: 100%;
 }
@@ -45,6 +46,7 @@ body {
         min-height: 150px;
         &.partners {
             width: 100%;
+            display: none;
         }
         .carousel-indicators {
             bottom: 0;
@@ -68,13 +70,19 @@ body {
                     text-align: center;
                 }
             }
+            .sort {
+                font-weight: normal;
+                .active {
+                    font-weight: bold;
+                }
+            }
         }
         .form-content {
             padding: 20px;
             flex: 1 0 auto;
             position: relative;
             min-height: @totalSize;
-            .loader{
+            .loader {
                 text-align: center;
                 display: none;
             }
@@ -85,8 +93,8 @@ body {
                 align-items: center;
                 .partner {
                     display: flex;
-                    flex-direction:column;
-                    align-items:center;
+                    flex-direction: column;
+                    align-items: center;
                     margin: 0 10px;
                     .shares {
                         border-radius: 50%;
@@ -107,7 +115,7 @@ body {
                         width: @valueSize/2;
                         height: @valueSize;
                         line-height: @valueSize;
-                        span{
+                        span {
                             display: block;
                             transform: rotate(-90deg)
                         }
@@ -135,6 +143,7 @@ body {
                 justify-content: space-between;
                 align-items: flex-start;
                 align-content: space-between;
+                min-height: 250px;
                 .short-info {
                     flex: 0 0 180px;
                     padding: 10px;
@@ -196,8 +205,12 @@ body {
                     padding: 10px;
                     border-bottom: 1px solid @textColor;
                     cursor: pointer;
-                    &.active{
+                    &.active {
                         font-weight: bold;
+                        background-color: @hoverList;
+                    }
+                    &:hover{
+                        background-color: @hoverList;
                     }
                 }
             }

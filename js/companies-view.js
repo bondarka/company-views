@@ -2,6 +2,12 @@ var MAXDESCRIPTION = 100;
 
 $(function() {
 
+
+
+    var sortKey = 'name';
+    var sortReverse = false;
+    var currentPartners = [];
+
     /**
      * Show Number of companies in set
      * @param {array} data  - collection of companies
@@ -30,6 +36,8 @@ $(function() {
             $item.text(list[i]['name']);
             $item.data('id', i);
             $item.click(function() {
+                var $partners = $('.partners');
+                $partners.show();
                 var index = $(this).data("id");
                 showPartners(list[index]['partners']);
                 $(this).addClass("active");
@@ -55,8 +63,82 @@ $(function() {
             });
     }
 
+    function sortPartners(list) {
+        list.sort(function(x, y) {
+            if (x[sortKey] > y[sortKey]) {
+                return sortReverse ? -1 : 1;
+            } else if (x[sortKey] < y[sortKey]) {
+                return sortReverse ? 1 : -1;
+            } else {
+                return 0;
+            }
+        })
+        return list;
+    }
+
+
+    function showSort() {
+        $(".sort").empty();
+        var $sortBold = $("<b>");
+        $sortBold.text("Sort by : ");
+        $sortBold.appendTo(".sort");
+
+        var $sortName = $("<span>");
+        $sortName.text("Name");
+        if (sortKey === 'name') {
+            $sortName.addClass("active");
+        }
+        $sortName.click(function() {
+            if (sortKey === 'name') {
+                sortReverse = !sortReverse;
+            } else {
+                sortReverse = false;
+            }
+            sortKey = 'name';
+            showSort();
+            showPartners(currentPartners);
+        })
+        $sortName.appendTo(".sort");
+
+        var $icon = $("<i>");
+        if (sortKey === 'name' && sortReverse) {
+            $icon.addClass("fa fa-sort-amount-desc");
+        } else {
+            $icon.addClass("fa fa-sort-amount-asc");
+        }
+        $icon.appendTo($sortName);
+
+        var $sortPercentage = $("<span>");
+        $sortPercentage.text("Percentage");
+        if (sortKey === 'value') {
+            $sortPercentage.addClass("active");
+        }
+        $sortPercentage.click(function() {
+            if (sortKey === 'value') {
+                sortReverse = !sortReverse;
+            } else {
+                sortReverse = false;
+            }
+            sortKey = 'value';
+            showSort();
+            showPartners(currentPartners);
+        })
+        $sortPercentage.appendTo(".sort");
+
+        var $icon2 = $("<i>");
+        if (sortKey === 'value' && sortReverse) {
+            $icon2.addClass("fa fa-sort-amount-desc");
+        } else {
+            $icon2.addClass("fa fa-sort-amount-asc");
+        }
+        $icon2.appendTo($sortPercentage);
+
+    }
+
 
     function showPartners(values) {
+        values = sortPartners(values);
+        currentPartners  = values;
         $(".company-partners").empty();
         for (var i = 0; i < values.length; i++) {
             var $partner = $("<div>");
@@ -78,15 +160,6 @@ $(function() {
             $box.text(values[i]['name']);
             $box.appendTo($companyName);
             $companyName.appendTo($partner);
-
-
-
-
-
-
-
-
-
         }
 
     }
@@ -104,7 +177,6 @@ $(function() {
     function getNews() {
         $.getJSON('http://codeit.pro/frontTestTask/news/getList',
             function(resp) {
-                console.log('resp', resp);
                 var catalog = resp["list"];
                 $(".carousel-indicators").empty();
                 for (var i = 0; i < catalog.length; i++) {
@@ -227,7 +299,7 @@ $(function() {
         return result;
 
     }
-    showPartners([{ "name": "Photojam", "value": 57 }, { "name": "Divavu", "value": 82 }, { "name": "Quinu", "value": 18 }]);
+    showSort()
     getList();
     getNews();
 });
