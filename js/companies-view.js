@@ -1,5 +1,10 @@
 var MAXDESCRIPTION = 100;
 
+$.fn.peity.defaults.pie = {
+  fill: ["#ff9900", "#fff4dd", "#ffd592"],
+  radius: 75
+}
+
 $(function() {
 
 
@@ -60,6 +65,7 @@ $(function() {
                 $loader.hide();
                 showTotal(response);
                 showCompanies(response);
+                calcCompanies(response);
             });
     }
 
@@ -138,7 +144,7 @@ $(function() {
 
     function showPartners(values) {
         values = sortPartners(values);
-        currentPartners  = values;
+        currentPartners = values;
         $(".company-partners").empty();
         for (var i = 0; i < values.length; i++) {
             var $partner = $("<div>");
@@ -161,7 +167,6 @@ $(function() {
             $box.appendTo($companyName);
             $companyName.appendTo($partner);
         }
-
     }
 
 
@@ -273,6 +278,30 @@ $(function() {
 
     }
 
+    function buildChart() {
+        $('.pie').peity('pie');
+    }
+
+    function calcCompanies(data) {
+        console.log('data', data);
+        var list = data["list"];
+        var result = {};
+
+        for (var i = 0; i < list.length; i++) {
+            var code = list[i]['location']['code'];
+            if (!result[code]) {
+                result[code] = [];
+            }
+            result[code].push(list[i]);
+        }
+        console.log(result);
+        buildChart();
+    }
+
+    //{'UA':['Microsoft', 'Google'], 'EN': [], 'FR': ['Procter']}
+
+
+
 
     /**
      * Format date
@@ -299,6 +328,7 @@ $(function() {
         return result;
 
     }
+
     showSort()
     getList();
     getNews();
