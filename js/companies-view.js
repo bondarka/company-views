@@ -50,7 +50,7 @@ $(function() {
     function getList() {
         var $loader = $('.companies-loader');
         $loader.show();
-        $.getJSON('http://codeit.pro/frontTestTask/company/getList',
+        $.getJSON('//codeit.pro/frontTestTask/company/getList',
             function(response) {
                 $loader.hide();
                 showTotal(response['list']);
@@ -261,7 +261,7 @@ $(function() {
     function getNews() {
         var $loader = $('.news-loader');
         $loader.show();
-        $.getJSON('http://codeit.pro/frontTestTask/news/getList',
+        $.getJSON('//codeit.pro/frontTestTask/news/getList',
             function(resp) {
                 $loader.hide();
                 showNews(resp['list']);

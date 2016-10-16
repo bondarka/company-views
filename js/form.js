@@ -12,17 +12,23 @@ $(function() {
                 type: "POST",
                 processData: false,
                 contentType: false,
-                url: "http://codeit.pro/frontTestTask/user/registration",
+                url: "//codeit.pro/frontTestTask/user/registration",
                 data: formData,
                 dataType: 'json'
             })
             .done(function(data) {
+                console.log('data', data);
                 if (data["status"] === "OK") {
                     window.location.replace("inner.html");
-                } else {
+                } else if (data["message"]) {
                     showError(data["message"]);
+                } else {
+                    showError('Unknown error');
                 }
 
+            })
+            .fail(function() {
+                showError('Unknown error');
             });
     }
 
