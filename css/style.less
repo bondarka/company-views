@@ -4,7 +4,7 @@
 @textColor: #555;
 @nameColor: #000;
 @titlecolor: #eee;
-@hoverList:rgba(204, 204, 204, 0.45);
+@hoverList: rgba(204, 204, 204, 0.45);
 @totalSize: 150px;
 @valueSize: 150px;
 html {
@@ -74,15 +74,18 @@ body {
                 font-weight: normal;
                 line-height: 40px;
                 padding: 0 15px;
-                cursor:pointer;
-                span{
+                cursor: pointer;
+                span {
                     padding: 0 10px;
-                  
                 }
                 .active {
                     font-weight: bold;
-                }  
-                
+                }
+            }
+            .back{
+                line-height: 40px;
+                padding: 0 15px;
+                cursor: pointer;
             }
         }
         .form-content {
@@ -217,7 +220,23 @@ body {
                         font-weight: bold;
                         background-color: @hoverList;
                     }
-                    &:hover{
+                    &:hover {
+                        background-color: @hoverList;
+                    }
+                }
+            }
+            .companies-location {
+                list-style-type: none;
+                padding: 0;
+                border: 1px solid @textColor;
+                max-height: 205px;
+                overflow-y: scroll;
+                display: none;
+                .local-company {
+                    border-bottom: 1px solid @textColor;
+                    padding: 10px;
+                    cursor:pointer;
+                    &:hover {
                         background-color: @hoverList;
                     }
                 }

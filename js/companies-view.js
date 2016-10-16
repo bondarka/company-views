@@ -1,10 +1,5 @@
 var MAXDESCRIPTION = 100;
 
-$.fn.peity.defaults.pie = {
-  fill: ["#ff9900", "#fff4dd", "#ffd592"],
-  radius: 75
-}
-
 $(function() {
 
 
@@ -18,9 +13,8 @@ $(function() {
      * @param {array} data  - collection of companies
      * @return undefined
      */
-    function showTotal(data) {
+    function showTotal(list) {
         $(".total-content").empty();
-        var list = data["list"];
         var $item = $("<span>");
         var $totalCompany = list.length;
         $item.text($totalCompany);
@@ -32,10 +26,9 @@ $(function() {
      * @param {array} data  - collection of companies
      * @return undefined
      */
-    function showCompanies(data) {
-        console.log('data', data);
+    function showCompanies(list) {
+        console.log('list', list);
         $(".companies-list").empty();
-        var list = data["list"];
         for (var i = 0; i < list.length; i++) {
             var $item = $("<li>");
             $item.text(list[i]['name']);
@@ -63,9 +56,9 @@ $(function() {
         $.getJSON('http://codeit.pro/frontTestTask/company/getList',
             function(response) {
                 $loader.hide();
-                showTotal(response);
-                showCompanies(response);
-                calcCompanies(response);
+                showTotal(response['list']);
+                showCompanies(response['list']);
+                calcCompanies(response['list']);
             });
     }
 
@@ -278,13 +271,52 @@ $(function() {
 
     }
 
-    function buildChart() {
-        $('.pie').peity('pie');
+
+
+
+    function buildChart(dataPoints) {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            data: [{
+                indexLabelFontSize: 20,
+                indexLabelFontFamily: "Monospace",
+                indexLabelFontColor: "darkgrey",
+                indexLabelLineColor: "darkgrey",
+                indexLabelPlacement: "outside",
+                type: "pie",
+                click: function(e) {
+                    console.log(e['dataPoint']);
+                    $("#chartContainer").hide();
+                    $(".companies-location").show();
+                    var $back = $("<i>");
+                    $back.addClass("fa fa-arrow-left");
+                    $back.click(function() {
+                        $(".companies-location").hide();
+                        $back.hide();
+                        $("#chartContainer").show();
+                    })
+                    $back.appendTo(".back");
+                    showLocation(e['dataPoint']['item']);
+                },
+                dataPoints: dataPoints
+            }]
+        });
+        chart.render();
     }
 
-    function calcCompanies(data) {
-        console.log('data', data);
-        var list = data["list"];
+
+    function showLocation(list) {
+        console.log('list', list);
+        $(".companies-location").empty();
+        for (var i = 0; i < list.length; i++) {
+            var $items = $("<li>");
+            $items.text(list[i]['name']);
+            $items.addClass("local-company")
+            $items.appendTo(".companies-location");
+        }
+    }
+
+    function calcCompanies(list) {
+
         var result = {};
 
         for (var i = 0; i < list.length; i++) {
@@ -295,10 +327,16 @@ $(function() {
             result[code].push(list[i]);
         }
         console.log(result);
-        buildChart();
+
+        var chartData = [];
+        for (var code in result) {
+            chartData.push({ item: result[code], indexLabel: code, y: result[code].length })
+        }
+        console.log('chartData', chartData);
+
+        buildChart(chartData);
     }
 
-    //{'UA':['Microsoft', 'Google'], 'EN': [], 'FR': ['Procter']}
 
 
 

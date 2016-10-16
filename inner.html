@@ -9,7 +9,7 @@
     <link href="css/style.less" rel="stylesheet/less" />
     <script src="js/jquery-1.12.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.peity.js"></script>
+    <script src="js/canvasjs.min.js"></script>
     <script type="text/javascript" src="js/companies-view.js"></script>
     <!-- set options before less.js script -->
     <script>
@@ -54,10 +54,9 @@
         <div class="form-box companies">
             <div class="form-block partners">
                 <div class="form-name">
-                <div class="pull-right sort"></div>
+                    <div class="pull-right sort"></div>
                     <h2 class="title">Company Partners
                     </h2>
-
                 </div>
                 <div class="form-content">
                     <div class="company-partners">
@@ -75,10 +74,15 @@
         <div class="form-box companies">
             <div class="form-block ">
                 <div class="form-name">
-                    <h2 class="title">Companies by Location</h2>
+                <div class="pull-right back">
+                </div>
+                    <h2 class="title">Companies by Location
+                    </h2>
                 </div>
                 <div class="form-content">
-                    <span class="pie">1,2,3,2,2</span>
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                    <ul class="companies-location">
+                    </ul>
                 </div>
             </div>
             <div class="form-block ">
