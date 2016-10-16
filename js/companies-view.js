@@ -45,11 +45,11 @@ $(function() {
      * @return undefined
      */
     function getList() {
-    	var $loader = $('.companies-box .loader');
-    	$loader.show();
+        var $loader = $('.companies-box .loader');
+        $loader.show();
         $.getJSON('http://codeit.pro/frontTestTask/company/getList',
             function(response) {
-            	$loader.hide();
+                $loader.hide();
                 showTotal(response);
                 showCompanies(response);
             });
@@ -67,6 +67,20 @@ $(function() {
             $shares.addClass("shares");
             $shares.text(values[i]['value'] + "%");
             $shares.appendTo($partner);
+
+            var $border = $("<div>");
+            $border.addClass("border");
+            $border.appendTo($partner);
+
+            var $companyName = $("<div>");
+            $companyName.addClass("company-name");
+            var $box = $("<span>");
+            $box.text(values[i]['name']);
+            $box.appendTo($companyName);
+            $companyName.appendTo($partner);
+
+
+
 
 
 

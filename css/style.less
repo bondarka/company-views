@@ -5,6 +5,7 @@
 @nameColor: #000;
 @titlecolor: #eee;
 @totalSize: 150px;
+@valueSize:150px;
 html {
     height: 100%;
 }
@@ -82,7 +83,6 @@ body {
                 flex-direction: row;
                 align-content: center;
                 align-items: center;
-                overflow-x: scroll;
                 .partner {
                     display: flex;
                     flex-direction:column;
@@ -91,21 +91,22 @@ body {
                     .shares {
                         border-radius: 50%;
                         border: 1px solid @formBorderColor;
-                        width: @totalSize/2;
-                        height: @totalSize/2;
+                        width: @valueSize/2;
+                        height: @valueSize/2;
                         text-align: center;
-                        line-height: @totalSize/2;
+                        line-height: @valueSize/2;
                     }
                     .border {
                         border-left: 1px solid @formBorderColor;
                         border-right: 1px solid @formBorderColor;
-                        width: @totalSize/8;
-                        height: @totalSize/4;
+                        width: @valueSize/8;
+                        height: @valueSize/4;
                     }
                     .company-name {
                         border: 1px solid @formBorderColor;
-                        width: @totalSize/2;
-                        height: @totalSize;
+                        width: @valueSize/2;
+                        height: @valueSize;
+                        line-height: @valueSize;
                         span{
                             display: block;
                             transform: rotate(-90deg)
@@ -194,6 +195,10 @@ body {
                 li {
                     padding: 10px;
                     border-bottom: 1px solid @textColor;
+                    cursor: pointer;
+                    &.active{
+                        font-weight: bold;
+                    }
                 }
             }
             .checkbox {
