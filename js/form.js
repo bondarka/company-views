@@ -1,11 +1,6 @@
 $(function() {
 
-    function filler() {
-        $.each($('input'), function(index, el) {
-            $(el).val(~~(Math.random() * 1000000));
-        });
-        $('input[type="email"]').val('mail@example.com');
-    }
+
 
     function showError(message) {
         $('.signup-error').show().text(message);
@@ -22,12 +17,10 @@ $(function() {
                 dataType: 'json'
             })
             .done(function(data) {
-                console.log('data', data);
-                if (data["status"]==="OK") {
-                	console.log("Вышло");
-                	window.location.replace("inner.html");
-                }else{
-                	showError(data["message"]);
+                if (data["status"] === "OK") {
+                    window.location.replace("inner.html");
+                } else {
+                    showError(data["message"]);
                 }
 
             });
@@ -36,7 +29,6 @@ $(function() {
 
 
     function validate(event) {
-        console.log("Handler for .submit() called.");
         event.preventDefault();
 
         $('.signup-error').hide();
@@ -57,7 +49,6 @@ $(function() {
         }
 
         var $email = $('.form-signup input[name="email"]');
-        console.log('$email', $email.val());
         var reEmail = new RegExp(/^[a-z0-9_\-\.]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}/);
         if (!reEmail.test($email.val())) {
             showError("Enter a valid email");
@@ -78,15 +69,10 @@ $(function() {
             return;
         }
 
-
-        console.log($userField.val());
-        console.log($secondNameField.val());
         signUp();
     }
 
 
     $(".form-block").submit(validate);
-
-    filler();
 
 });

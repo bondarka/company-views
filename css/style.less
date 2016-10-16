@@ -17,7 +17,11 @@ body {
     font-size: @fontSize;
     color: @textColor;
 }
-
+.container{
+    &.auth{
+        max-width: 650px;
+    }
+}
 .form-box {
     display: flex;
     flex-direction: row;
@@ -58,6 +62,11 @@ body {
                 }
             }
         }
+        .news-loader,
+        .companies-loader {
+            text-align: center;
+            display: none;
+        }
         .form-name {
             .title {
                 font-size: @fontSize*1.5;
@@ -82,7 +91,7 @@ body {
                     font-weight: bold;
                 }
             }
-            .back{
+            .back {
                 line-height: 40px;
                 padding: 0 15px;
                 cursor: pointer;
@@ -93,10 +102,6 @@ body {
             flex: 1 0 auto;
             position: relative;
             min-height: @totalSize;
-            .loader {
-                text-align: center;
-                display: none;
-            }
             .company-partners {
                 display: flex;
                 flex-direction: row;
@@ -235,7 +240,7 @@ body {
                 .local-company {
                     border-bottom: 1px solid @textColor;
                     padding: 10px;
-                    cursor:pointer;
+                    cursor: pointer;
                     &:hover {
                         background-color: @hoverList;
                     }

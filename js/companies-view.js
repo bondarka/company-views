@@ -2,8 +2,6 @@ var MAXDESCRIPTION = 100;
 
 $(function() {
 
-
-
     var sortKey = 'name';
     var sortReverse = false;
     var currentPartners = [];
@@ -27,7 +25,6 @@ $(function() {
      * @return undefined
      */
     function showCompanies(list) {
-        console.log('list', list);
         $(".companies-list").empty();
         for (var i = 0; i < list.length; i++) {
             var $item = $("<li>");
@@ -51,7 +48,7 @@ $(function() {
      * @return undefined
      */
     function getList() {
-        var $loader = $('.companies-box .loader');
+        var $loader = $('.companies-loader');
         $loader.show();
         $.getJSON('http://codeit.pro/frontTestTask/company/getList',
             function(response) {
@@ -62,6 +59,9 @@ $(function() {
             });
     }
 
+    /**
+     * Sort Partners list from Name and Percentage
+     */
     function sortPartners(list) {
         list.sort(function(x, y) {
             if (x[sortKey] > y[sortKey]) {
@@ -74,7 +74,6 @@ $(function() {
         })
         return list;
     }
-
 
     function showSort() {
         $(".sort").empty();
@@ -134,7 +133,11 @@ $(function() {
 
     }
 
-
+    /**
+     * Show Partners list 
+     * @param {array} data  - collection of companies
+     * @return undefined
+     */
     function showPartners(values) {
         values = sortPartners(values);
         currentPartners = values;
@@ -165,7 +168,90 @@ $(function() {
 
 
 
+    function showNews(data) {
+        var catalog = data;
+        $(".carousel-indicators").empty();
+        for (var i = 0; i < catalog.length; i++) {
+            var $indicator = $("<li>");
+            $indicator.attr('data-target', '#myCarousel');
+            $indicator.attr('data-slide-to', i);
+            if (i === 0) {
+                $indicator.addClass("active");
+            }
+            $indicator.appendTo(".carousel-indicators");
+        }
 
+        $(".carousel-inner").empty();
+        for (i = 0; i < catalog.length; i++) {
+            var $item = $("<div>");
+            $item.addClass("item");
+            if (i === 0) {
+                $item.addClass("active");
+            }
+            $item.appendTo(".carousel-inner");
+
+            var $content = $("<div>");
+            $content.addClass("form-content news");
+            $content.appendTo($item);
+
+            var $shortInfo = $("<div>");
+            $shortInfo.addClass("short-info");
+            $shortInfo.appendTo($content);
+
+            var $newsImage = $("<div>");
+            $newsImage.addClass("news-image");
+            $newsImage.appendTo($shortInfo);
+
+            var $image = $("<img>");
+            $image.attr("src", catalog[i]['img']);
+            $image.attr("alt", catalog[i]['author']);
+            $image.appendTo($newsImage);
+
+            var $author = $("<div>");
+            $author.addClass("author")
+            $author.appendTo($shortInfo);
+
+            var $bold = $("<b>");
+            $bold.text("Author : ");
+            $bold.appendTo($author)
+
+            var $authorName = $("<span>");
+            $authorName.text(catalog[i]['author']);
+            $authorName.appendTo($author);
+
+            var $public = $("<div>");
+            $public.addClass("public");
+            $public.appendTo($shortInfo);
+
+            var $boldDate = $("<b>");
+            $boldDate.text("Public : ");
+            $boldDate.appendTo($public);
+
+            var $publicDate = $("<span>");
+            $publicDate.text(formatDate(catalog[i]["date"]));
+            $publicDate.appendTo($public);
+
+            var $shortContent = $("<div>");
+            $shortContent.addClass("short-content");
+            $shortContent.appendTo($content);
+
+            var $title = $("<a>");
+            $title.addClass("link-title");
+            $title.text(catalog[i]['link']);
+            $title.attr('href', catalog[i]['link']);
+            $title.appendTo($shortContent);
+
+            var $description = $("<p>");
+            var text = catalog[i]['description'];
+            if (text.length > MAXDESCRIPTION) {
+                text = text.slice(0, MAXDESCRIPTION);
+                text += "...";
+            }
+            $description.text(text);
+            $description.appendTo($shortContent);
+
+        }
+    }
 
 
     /**
@@ -173,100 +259,12 @@ $(function() {
      * @return undefined
      */
     function getNews() {
+        var $loader = $('.news-loader');
+        $loader.show();
         $.getJSON('http://codeit.pro/frontTestTask/news/getList',
             function(resp) {
-                var catalog = resp["list"];
-                $(".carousel-indicators").empty();
-                for (var i = 0; i < catalog.length; i++) {
-                    var $indicator = $("<li>");
-                    $indicator.attr('data-target', '#myCarousel');
-                    $indicator.attr('data-slide-to', i);
-                    if (i === 0) {
-                        $indicator.addClass("active");
-                    }
-                    $indicator.appendTo(".carousel-indicators");
-                };
-
-                $(".carousel-inner").empty();
-                for (var i = 0; i < catalog.length; i++) {
-                    var $item = $("<div>");
-                    $item.addClass("item");
-                    if (i === 0) {
-                        $item.addClass("active");
-                    }
-                    $item.appendTo(".carousel-inner");
-
-
-                    var $content = $("<div>");
-                    $content.addClass("form-content news");
-                    $content.appendTo($item);
-
-                    // add block short info
-                    var $shortInfo = $("<div>");
-                    $shortInfo.addClass("short-info");
-                    $shortInfo.appendTo($content);
-
-                    // add img
-                    var $newsImage = $("<div>");
-                    $newsImage.addClass("news-image");
-                    $newsImage.appendTo($shortInfo);
-
-                    var $image = $("<img>");
-                    $image.attr("src", catalog[i]['img']);
-                    $image.attr("alt", catalog[i]['author']);
-                    $image.appendTo($newsImage);
-
-                    // add author
-                    var $author = $("<div>");
-                    $author.addClass("author")
-                    $author.appendTo($shortInfo);
-
-                    var $bold = $("<b>");
-                    $bold.text("Author : ");
-                    $bold.appendTo($author)
-
-                    var $authorName = $("<span>");
-                    $authorName.text(catalog[i]['author']);
-                    $authorName.appendTo($author);
-                    // add date
-                    var $public = $("<div>");
-                    $public.addClass("public");
-                    $public.appendTo($shortInfo);
-
-                    var $boldDate = $("<b>");
-                    $boldDate.text("Public : ");
-                    $boldDate.appendTo($public);
-
-
-                    var $publicDate = $("<span>");
-                    $publicDate.text(formatDate(catalog[i]["date"]));
-                    $publicDate.appendTo($public);
-
-                    // add block short content
-
-                    var $shortContent = $("<div>");
-                    $shortContent.addClass("short-content");
-                    $shortContent.appendTo($content);
-
-                    // add title
-                    var $title = $("<a>");
-                    $title.addClass("link-title");
-                    $title.text(catalog[i]['link']);
-                    $title.attr('href', catalog[i]['link']);
-                    $title.appendTo($shortContent);
-
-                    // add description
-                    var $description = $("<p>");
-                    var text = catalog[i]['description'];
-                    if (text.length > MAXDESCRIPTION) {
-                        text = text.slice(0, MAXDESCRIPTION);
-                        text += "...";
-                    }
-                    $description.text(text);
-                    $description.appendTo($shortContent);
-
-                }
-
+                $loader.hide();
+                showNews(resp['list']);
             });
 
     }
@@ -284,14 +282,13 @@ $(function() {
                 indexLabelPlacement: "outside",
                 type: "pie",
                 click: function(e) {
-                    console.log(e['dataPoint']);
                     $("#chartContainer").hide();
                     $(".companies-location").show();
                     var $back = $("<i>");
                     $back.addClass("fa fa-arrow-left");
                     $back.click(function() {
                         $(".companies-location").hide();
-                        $back.hide();
+                        $back.remove();
                         $("#chartContainer").show();
                     })
                     $back.appendTo(".back");
@@ -305,7 +302,6 @@ $(function() {
 
 
     function showLocation(list) {
-        console.log('list', list);
         $(".companies-location").empty();
         for (var i = 0; i < list.length; i++) {
             var $items = $("<li>");
@@ -318,27 +314,19 @@ $(function() {
     function calcCompanies(list) {
 
         var result = {};
-
         for (var i = 0; i < list.length; i++) {
-            var code = list[i]['location']['code'];
-            if (!result[code]) {
-                result[code] = [];
+            var locationCode = list[i]['location']['code'];
+            if (!result[locationCode]) {
+                result[locationCode] = [];
             }
-            result[code].push(list[i]);
+            result[locationCode].push(list[i]);
         }
-        console.log(result);
-
         var chartData = [];
         for (var code in result) {
             chartData.push({ item: result[code], indexLabel: code, y: result[code].length })
         }
-        console.log('chartData', chartData);
-
         buildChart(chartData);
     }
-
-
-
 
 
     /**
